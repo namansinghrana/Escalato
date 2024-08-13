@@ -6,7 +6,7 @@ import { Container,Row,Col } from "react-bootstrap";
 
 import React from 'react'
 
-const Reviews = ({getMoviesData,movie,reviews,SetReviews}) => {
+const Reviews = ({getMoviesData,movie,reviews = [],setReviews}) => {
    
     
     const revText = useRef();
@@ -24,12 +24,12 @@ const Reviews = ({getMoviesData,movie,reviews,SetReviews}) => {
 
         try {
         
-            const response = await api.post("/api/v1/reviews",{reviewBody:rev.value, imdbId:movieId});
+            const response = await api.post(`/api/v1/reviews/${movieId}`,{reviewBody:rev.value, imdbId:movieId});
             const updatedReviews = [...reviews,{body:rev.value}];
     
             rev.value = "";
     
-            SetReviews(updatedReviews);
+            setReviews(updatedReviews);
     
             
         } catch (err) {
